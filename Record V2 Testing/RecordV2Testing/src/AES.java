@@ -70,7 +70,7 @@ public abstract class AES {
         return decryptedData;
     }
     private static void handleError (Exception e) {
-      var exitCode = 000;
+      var exitCode = 001;
       if (e instanceof NoSuchAlgorithmException) {
         exitCode = 101;
       } else if (e instanceof InvalidKeySpecException) {
@@ -85,8 +85,6 @@ public abstract class AES {
         exitCode = 106;
       } else if (e instanceof InvalidKeyException) {
         exitCode = 107;
-      } else {
-        exitCode = 001;
       }
       System.out.println(e.getMessage());
       System.exit(exitCode);
