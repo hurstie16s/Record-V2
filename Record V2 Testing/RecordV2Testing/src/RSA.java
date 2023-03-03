@@ -6,6 +6,14 @@ import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 
+/**
+ * RSA Encryption Class
+ * Error Codes:
+ * NoSuchAlgorithmException = 201
+ * InvalidKeySpecException = 202
+ * NoSuchPaddingException = 203
+ * InvalidKeyException = 204
+ */
 public class RSA {
 
     public static KeyPair generateRSAKeys() {
