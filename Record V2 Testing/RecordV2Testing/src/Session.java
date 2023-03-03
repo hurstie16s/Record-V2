@@ -14,8 +14,8 @@ public class Session {
         this.username = username;
         this.aesKey = AES.generateInformedAESKey(password, username);
         this.email = new String(AES.decrypt(Base64.getDecoder().decode(encryptedEmail), aesKey));
-        this.publicRSAKey = (PublicKey) RSA.decodeKey(encodedPublicRSAKey);
-        this.privateRSAKey = (PrivateKey) RSA.decodeKey(AES.decrypt(encryptedPrivateRSAKey, aesKey));
+        this.publicRSAKey = RSA.decodePublicKey(encodedPublicRSAKey);
+        this.privateRSAKey = RSA.decodePrivateKey(AES.decrypt(encryptedPrivateRSAKey, aesKey));
     }
 
     //getters

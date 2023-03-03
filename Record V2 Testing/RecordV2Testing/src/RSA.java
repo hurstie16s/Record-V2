@@ -13,6 +13,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
  * InvalidKeySpecException = 202
  * NoSuchPaddingException = 203
  * InvalidKeyException = 204
+ * BadPaddingException = 205
+ * IllegalBlockSizeException = 206
+ *
  */
 public class RSA {
 
@@ -28,7 +31,14 @@ public class RSA {
         return pair;
     }
 
-    public static Key decodeKey(byte[] encodedKey) {
+  public static PublicKey decodePublicKey(byte[] encodedKey) {
+    try {
+      return KeyFactory.getInstance("RSA").generatePublic(new PKCS8EncodedKeySpec(encodedKey));
+    } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+    public static PrivateKey decodePrivateKey(byte[] encodedKey) {
         try {
             return KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(encodedKey));
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
