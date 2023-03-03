@@ -2,6 +2,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.util.Base64;
 
+/**
+ * The type Session.
+ */
 public class Session {
 
     private String username;
@@ -10,10 +13,10 @@ public class Session {
     private final PublicKey publicRSAKey;
     private final PrivateKey privateRSAKey;
 
-    public Session(String username, String password, String encryptedEmail, byte[] encodedPublicRSAKey, byte[] encryptedPrivateRSAKey) {
+    public Session(String username, String password, byte[] encryptedEmail, byte[] encodedPublicRSAKey, byte[] encryptedPrivateRSAKey) {
         this.username = username;
         this.aesKey = AES.generateInformedAESKey(password, username);
-        this.email = new String(AES.decrypt(Base64.getDecoder().decode(encryptedEmail), aesKey));
+        this.email = new String(AES.decrypt(encryptedEmail, aesKey));
         this.publicRSAKey = RSA.decodePublicKey(encodedPublicRSAKey);
         this.privateRSAKey = RSA.decodePrivateKey(AES.decrypt(encryptedPrivateRSAKey, aesKey));
     }
